@@ -23,7 +23,7 @@ namespace ProductReviewWebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetByID(int id)
         {
-           
+
             var review = _context.Reviews.SingleOrDefault(review => review.Id == id);
             if (review == null)
             {
@@ -32,7 +32,7 @@ namespace ProductReviewWebAPI.Controllers
             return Ok(review);
         }
         [HttpPost]
-        public IActionResult Post(Product product) 
+        public IActionResult Post([FromBody] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -42,5 +42,42 @@ namespace ProductReviewWebAPI.Controllers
             }
             return BadRequest(ModelState);
         }
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] Product product)
+        {
+            var existingProduct = _context.Products.Find(id);
+            if (existingProduct == null)
+            {
+                return NotFound();
+            }
+            existingProduct.Name = product.Name;
+            existingProduct.Price = product.Price;
+            existingProduct.Reviews = product.Reviews;
+
+            _context.SaveChanges();
+
+            return StatusCode(200, existingProduct);
+
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var product = _context.Products.Find(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+            return NoContent();
+        }
+        //[HttpGet("search/{keyword}")]
+        //public IActionResult GetByProductId(int productId)
+        //{
+
+        //}
     }
 }
+
+
+
