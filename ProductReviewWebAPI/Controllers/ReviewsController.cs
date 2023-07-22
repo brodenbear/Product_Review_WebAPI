@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProductReviewWebAPI.Data;
 using ProductReviewWebAPI.Models;
 
@@ -43,21 +43,22 @@ namespace ProductReviewWebAPI.Controllers
             return BadRequest(ModelState);
         }
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Product product)
+
+        public IActionResult Put(int id, [FromBody] Review review)
         {
-            var existingProduct = _context.Products.Find(id);
-            if (existingProduct == null)
-            {
+            var existingReview = _context.Reviews.Find(id);
+            if (existingReview == null)
                 return NotFound();
-            }
-            existingProduct.Name = product.Name;
-            existingProduct.Price = product.Price;
-            existingProduct.Reviews = product.Reviews;
+
+            // Assuming you handle validation and other operations before updating the review
+            existingReview.Title = review.Title;
+            existingReview.ProductName = review.ProductName;
+            existingReview.Rating = review.Rating;
+            existingReview.ProductID = review.ProductID;
 
             _context.SaveChanges();
 
-            return StatusCode(200, existingProduct);
-
+            return StatusCode(200, existingReview);
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
@@ -71,13 +72,19 @@ namespace ProductReviewWebAPI.Controllers
             _context.SaveChanges();
             return NoContent();
         }
-        //[HttpGet("search/{keyword}")]
-        //public IActionResult GetByProductId(int productId)
-        //{
+        [HttpGet("search/{keyword}")]
+        public IActionResult GetByProductId(int productId)
+        {
+            var review = _context.Reviews
+         .Include(p => p.ProductID)
+         .FirstOrDefault(p => p.Id == productId);
+                return Ok(review);
 
-        //}
+
+        }
     }
 }
+
 
 
 
