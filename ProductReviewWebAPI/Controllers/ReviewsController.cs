@@ -50,8 +50,8 @@ namespace ProductReviewWebAPI.Controllers
             if (existingReview == null)
             { return NotFound(); }
 
-            existingReview.Title = review.Title;
-            existingReview.ProductName = review.ProductName;
+            existingReview.Text = review.Text;
+            existingReview.Product = review.Product;
             existingReview.Rating = review.Rating;
             existingReview.ProductID = review.ProductID;
 
