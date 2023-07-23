@@ -72,12 +72,14 @@ namespace ProductReviewWebAPI.Controllers
             return NoContent();
         }
         [HttpGet("search/{keyword}")]
-        public IActionResult GetByProductId(int productId)
+        public IActionResult GetByProductId(int? productId)
         {
-            var reviews = _context.Reviews
-         .Include(p => p.ProductID)
-         .FirstOrDefault(p => p.Id == productId);
-                return StatusCode(200, reviews);
+            var reviews = _context.Reviews.ToList();
+            if (productId != null)
+            {
+                reviews = reviews.Where(r => r.ProductID == productId).ToList();
+            }
+            return Ok(reviews);
         }
     }
 }
