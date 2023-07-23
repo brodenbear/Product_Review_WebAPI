@@ -32,13 +32,13 @@ namespace ProductReviewWebAPI.Controllers
             return Ok(review);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] Product product)
+        public IActionResult Post([FromBody] Review review)
         {
             if (ModelState.IsValid)
             {
-                _context.Products.Add(product);
+                _context.Reviews.Add(review);
                 _context.SaveChanges();
-                return StatusCode(201, product);
+                return StatusCode(201, review);
             }
             return BadRequest(ModelState);
         }
@@ -62,12 +62,12 @@ namespace ProductReviewWebAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var product = _context.Products.Find(id);
-            if (product == null)
+            var review = _context.Reviews.Find(id);
+            if (review == null)
             {
                 return NotFound();
             }
-            _context.Products.Remove(product);
+            _context.Reviews.Remove(review);
             _context.SaveChanges();
             return NoContent();
         }
