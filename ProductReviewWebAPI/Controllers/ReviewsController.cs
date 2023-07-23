@@ -48,9 +48,8 @@ namespace ProductReviewWebAPI.Controllers
         {
             var existingReview = _context.Reviews.Find(id);
             if (existingReview == null)
-                return NotFound();
+            { return NotFound(); }
 
-            // Assuming you handle validation and other operations before updating the review
             existingReview.Title = review.Title;
             existingReview.ProductName = review.ProductName;
             existingReview.Rating = review.Rating;
@@ -75,12 +74,10 @@ namespace ProductReviewWebAPI.Controllers
         [HttpGet("search/{keyword}")]
         public IActionResult GetByProductId(int productId)
         {
-            var review = _context.Reviews
+            var reviews = _context.Reviews
          .Include(p => p.ProductID)
          .FirstOrDefault(p => p.Id == productId);
-                return Ok(review);
-
-
+                return StatusCode(200, reviews);
         }
     }
 }
