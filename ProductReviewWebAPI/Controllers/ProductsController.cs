@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProductReviewWebAPI.Data;
 using ProductReviewWebAPI.Models;
 
@@ -56,5 +55,40 @@ namespace ProductReviewWebAPI.Controllers
             _context.SaveChanges();
             return NoContent();
         }
+
+        [HttpGet]
+        public IActionResult GetAll(int? maxPrice)
+        {
+            var products = _context.Products.ToList();
+            if (maxPrice != null)
+            {
+                products = products.Where(p => p.Price <= maxPrice).ToList();
+            }
+            return Ok(products);
+
+        }
+
+        [HttpGet]
+        public IActionResult GetProduct(int id)
+        {
+            var products = _context.Products
+                .Select(p => new ProductDTO
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price,
+                Reviews = p.Reviews.Select(r => new ReviewDTO
+                {
+                    Id = r.Id,
+                    Text = r.Text,
+                    Rating = r.Rating,
+
+
+                }).ToList()
+
+            }).ToList();
+            return Ok(products);
+        }
+
     }
 }

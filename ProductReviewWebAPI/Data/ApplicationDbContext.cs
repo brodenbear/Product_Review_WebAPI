@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductReviewWebAPI.Models;
+using ProductReviewWebAPI.Data;
+using ProductReviewWebAPI.Models;
 
 namespace ProductReviewWebAPI.Data
 {
