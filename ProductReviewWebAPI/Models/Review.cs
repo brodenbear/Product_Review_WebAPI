@@ -14,6 +14,6 @@ namespace ProductReviewWebAPI.Models
         
         [ForeignKey("Product")]
         public int ProductId { get; set; }
-        public string Product { get; set; }
+        public Product Product { get; set; }
     }
 }

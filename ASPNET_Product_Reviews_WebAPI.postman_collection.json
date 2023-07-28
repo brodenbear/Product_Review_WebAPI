@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "66519b99-aaf3-410d-b27f-f6c8fa93cc0b",
+		"name": "ASPNET_Product_Reviews_WebAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28586223"
+	},
+	"item": [
+		{
+			"name": "Get All",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Get By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7043/api/Reviews/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7043",
+					"path": [
+						"api",
+						"Reviews",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "        {\"id\" : 5,\r\n        \"rating\": 8,\r\n        \"productid\": 6,\r\n        \"text\" : \"this is the best product\",\r\n        \"review\" : \"I love this\"\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7043/api/Reviews/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7043",
+					"path": [
+						"api",
+						"Reviews",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

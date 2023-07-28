@@ -53,7 +53,7 @@ namespace ProductReviewWebAPI.Controllers
             existingReview.Text = review.Text;
             existingReview.Product = review.Product;
             existingReview.Rating = review.Rating;
-            existingReview.ProductID = review.ProductID;
+            existingReview.ProductId = review.ProductId;
 
             _context.SaveChanges();
 
@@ -77,7 +77,7 @@ namespace ProductReviewWebAPI.Controllers
             var reviews = _context.Reviews.ToList();
             if (productId != null)
             {
-                reviews = reviews.Where(r => r.ProductID == productId).ToList();
+                reviews = reviews.Where(r => r.ProductId == productId).ToList();
             }
             return Ok(reviews);
         }

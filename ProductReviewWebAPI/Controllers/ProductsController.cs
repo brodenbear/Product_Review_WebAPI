@@ -75,6 +75,7 @@ namespace ProductReviewWebAPI.Controllers
             var products = _context.Products
                 .Select(p => new ProductDTO
             {
+                AverageRating = p.Reviews.Average(a => a.Rating),
                 Id = p.Id,
                 Name = p.Name,
                 Price = p.Price,
