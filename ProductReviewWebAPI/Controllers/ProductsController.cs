@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductReviewWebAPI.Data;
 using ProductReviewWebAPI.Models;
+using System.Net.Security;
 
 namespace ProductReviewWebAPI.Controllers
 {
@@ -83,11 +84,12 @@ namespace ProductReviewWebAPI.Controllers
                     Text = r.Text,
                     Rating = r.Rating,
 
-
-                }).ToList()
+                }
+                ).ToList()
      
 
             }).ToList();
+          
             return Ok(products);
         }
 
